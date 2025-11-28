@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 
-# Port donde sirve single-spa Angular (mira tu script serve:single-spa)
+# Port donde sirve single-spa Angular
 EXPOSE 4200
 
 CMD ["npm", "run", "serve:single-spa:inventario-mf"]

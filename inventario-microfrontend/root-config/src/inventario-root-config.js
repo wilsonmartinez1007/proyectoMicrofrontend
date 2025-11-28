@@ -11,12 +11,11 @@ const routes = constructRoutes(microfrontendLayout);
 const applications = constructApplications({
   routes,
   loadApp({ name }) {
-    // 🔹 Para TODO lo que no sea el MF de Angular, usamos el import normal
     if (name !== "@inventario/inventario-mf") {
       return import(/* webpackIgnore: true */ name);
     }
 
-    // 🔹 Para el microfrontend Angular:
+    // Para el microfrontend Angular:
     // Cargamos el main.js (UMD) y devolvemos window["inventario-mf"]
     return import(/* webpackIgnore: true */ "//localhost:4200/main.js").then(
       () => {
@@ -26,7 +25,7 @@ const applications = constructApplications({
             "No se encontró window['inventario-mf'] después de cargar main.js"
           );
         }
-        return mf; // debe tener { bootstrap, mount, unmount }
+        return mf; 
       }
     );
   },

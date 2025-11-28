@@ -9,7 +9,6 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
-    # Para que el host 'backend' funcione desde otros contenedores
     networks:
       - inventario-net
 

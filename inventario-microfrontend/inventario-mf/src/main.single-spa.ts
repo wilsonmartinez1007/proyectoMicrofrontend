@@ -11,7 +11,7 @@ const lifecycles = singleSpaAngular({
       AppModule
     );
   },
-  template: '<app-root />', // 👈 coincide con selector de AppComponent
+  template: '<app-root />', 
   NgZone,
 });
 

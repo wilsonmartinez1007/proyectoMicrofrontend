@@ -6,14 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [],          // 👈 seguimos sin declarar AppComponent
+  declarations: [],          
   imports: [BrowserModule,  HttpClientModule,  AppComponent],
   providers: [],
-  bootstrap: [],             // 👈 se deja vacío
+  bootstrap: [],         
 })
 export class AppModule implements DoBootstrap {
   ngDoBootstrap(appRef: ApplicationRef) {
-    // 👈 aquí SÍ arrancamos el standalone root
     appRef.bootstrap(AppComponent);
   }
 }

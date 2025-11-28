@@ -1,13 +1,12 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, serializers
 from .models import Compra
 from .serializers import CompraSerializer
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User  
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -55,3 +54,27 @@ def compras_cambiar_estado(request, pk):
     compra.save()   
     serializer = CompraSerializer(compra)
     return Response(serializer.data)
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "password")
+
+    def create(self, validated_data):
+        user = User(username=validated_data["username"])
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny]) 
+def register(request):
+    serializer = RegisterSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"detail": "Usuario creado correctamente"}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

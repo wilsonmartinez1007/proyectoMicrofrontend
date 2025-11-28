@@ -50,9 +50,9 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    // Hay token → sí mostramos la UI y cargamos compras
+    
     this.isAuthenticated = true;
-    // Si hay token, ya puedes cargar las compras
+    // Si hay token, cargamos las compras
     this.cargarCompras();
   }
 
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
       error: (err) => {
         console.error(err);
 
-        // Si el backend responde 401 → sesión inválida / expirada
+        // para sesión inválida 
         if (err.status === 401) {
           localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');
